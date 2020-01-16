@@ -1,0 +1,33 @@
+---
+title: "LeafletMaps"
+author: "Aman Jha"
+date: "1/16/2020"
+output: html_document
+---
+
+## Libraries used 
+- **leaflet**
+
+
+## Destination to visit in India
+<p>
+Here we map those locations you need to visit as a tourist while visiting India.Click on the link to reach the tourism webite for each of these locations.
+</p>
+
+```{r echo=FALSE}
+library(leaflet)
+
+destination<- data.frame(Name=c("Leh-ladhak","New Delhi","Agra","Varanasi","Kashmir"),lat=c(34.1526,28.7041,27.1767,25.3176,33.7782),lng=c(77.5771,77.1025,78.0081,82.9739,76.5762))
+
+Popups <- c(
+  "<a href='https://www.lehladakhindia.com/'>Leh-Ladhak</a>",
+  "<a href='https://www.lehladakhindia.com/best-time-to-visit-leh-ladakh/'>New Delhi</a>",
+  "<a href='https://www.tourism-of-india.com/agra/'>Agra </a>",
+  "<a href='https://www.lonelyplanet.com/india/uttar-pradesh/varanasi'>Varanasi</a>",
+  "<a href='http://www.kashmir-tourism.org/'>Kashmir</a>"
+)
+
+destination%>%leaflet()%>%addTiles()%>%addMarkers(lat=destination$lat,lng = destination$lng,label = destination$Name,popup = Popups)
+
+```
+
