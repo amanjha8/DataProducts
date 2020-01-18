@@ -1,0 +1,24 @@
+---
+title: "Cars"
+author: "Aman Jha"
+date: "1/18/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(ggplot2)
+library(plotly)
+```
+
+## Summary
+Here we trying to create an interactive plot for MPG vs WT categorized by the CYL variable from the **mtcars dataset**. We also set up a leoss smooth curve for further prediction.
+
+## Plot
+
+```{r }
+g<-ggplot(mtcars,aes(wt,mpg,color=cyl))+geom_point()+geom_smooth()
+ggplotly(g)
+```
+
+## Thanks 
