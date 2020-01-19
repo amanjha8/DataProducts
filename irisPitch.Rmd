@@ -1,0 +1,58 @@
+---
+title: "irisPitch"
+author: "Aman Jha"
+date: "1/19/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Summary
+
+- We here have created a model for prediction of Species of iris all the other features .
+
+- This can be seen by plot below.
+```{r}
+pairs(iris)
+```
+```{r include=FALSE,echo=FALSE}
+library(caret)
+library(ggplot2)
+```
+
+## Model Fitting
+
+We fit a **random forest** which provides a nearly perfect accuracy.This can be shown by dividing the dataset into traning and test set and fitting the appropriate model.
+```{r echo=FALSE , cache=TRUE}
+set.seed(344345)
+inTrain<- createDataPartition(iris$Species,p=0.75,list=FALSE)
+training<- iris[inTrain,]
+testing<- iris[-inTrain,]
+
+fit1<- train(Species~.,data=training,method="rf",
+             trControl=trainControl(method="repeatedcv",number =10,repeats = 3))
+pred<- predict(fit1,testing)
+confusionMatrix(pred,testing$Species)
+```
+
+## App Documentation
+- The app created requires the user to input the Sepal.Length,Sepal.Width,Petal.Length and Petal.Width such that it can predict the Species of the iris.
+- After you add the values using slider input , you click on submit button to see the species your plant.
+- The check box if clicked shows you the graph and your values in the particular graph. 
+- You can enter values again and again for different obs.
+- App is present at https://amanjha8.shinyapps.io/irisPrediction/
+
+
+## Plot-1
+```{r echo=FALSE}
+ggplot(iris,aes(Petal.Length,Petal.Width,color=Species))+geom_point()
+```
+
+## Plot-2
+```{r echo=FALSE}
+ggplot(iris,aes(Sepal.Length,Sepal.Width,color=Species))+geom_point()
+```
+
+## THANKS!!
